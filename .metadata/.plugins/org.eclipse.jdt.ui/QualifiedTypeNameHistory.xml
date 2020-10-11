@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.app.bank.service.LoginService"/>
+    <fullyQualifiedTypeName name="com.app.banking.service.LoginServiceImpl"/>
+    <fullyQualifiedTypeName name="com.app.banking.dao.LoginDAO"/>
+    <fullyQualifiedTypeName name="com.app.banking.dao.LoginDAOImpl"/>
+    <fullyQualifiedTypeName name="com.app.banking.dao.UserDao"/>
+    <fullyQualifiedTypeName name="com.app.banking.model.User"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="com.mysql.cj.MysqlConnection"/>
+    <fullyQualifiedTypeName name="com.app.banking.database.utility.MySqlConnection"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="com.mysql.cj.protocol.Resultset"/>
+    <fullyQualifiedTypeName name="com.app.banking.model.Role"/>
+    <fullyQualifiedTypeName name="com.app.banking.dao.UserDAO"/>
+    <fullyQualifiedTypeName name="com.app.banking.dao.UserDAOImpl"/>
+    <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="com.app.banking.service.UserInfoService"/>
+    <fullyQualifiedTypeName name="com.app.banking.service.UserInfoServiceImpl"/>
+    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
+    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
+    <fullyQualifiedTypeName name="com.app.banking.exception.BusinessException"/>
+    <fullyQualifiedTypeName name="com.app.banking.exception.UserException"/>
+    <fullyQualifiedTypeName name="com.app.banking.model.Account"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="com.app.banking.model.AccountType"/>
+    <fullyQualifiedTypeName name="com.app.banking.model.AccountStatus"/>
+</qualifiedTypeNameHistroy>

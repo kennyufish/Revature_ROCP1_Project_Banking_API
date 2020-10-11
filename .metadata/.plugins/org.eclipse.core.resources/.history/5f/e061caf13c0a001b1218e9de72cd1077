@@ -1,0 +1,14 @@
+package com.app.banking.dao;
+
+import com.app.banking.exception.UserException;
+import com.app.banking.model.Account;
+
+public class AccountDAOImpl implements AccountDAO {
+
+	@Override
+	public Account getAccountByUsername(String username) throws UserException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,14 @@
+package com.app.banking.service;
+
+import com.app.banking.exception.BusinessException;
+
+public class UserInfoServiceImpl implements UserInfoService{
+
+	@Override
+	public int getUserInfo(String username, String password) throws BusinessException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+
+}

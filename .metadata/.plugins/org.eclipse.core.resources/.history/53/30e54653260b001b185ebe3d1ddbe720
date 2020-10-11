@@ -1,0 +1,53 @@
+package com.app.banking.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.banking.dao.UserDAO;
+import com.app.banking.dao.UserDAOImpl;
+import com.app.banking.exception.BusinessException;
+import com.app.banking.exception.UserException;
+import com.app.banking.model.Account;
+import com.app.banking.model.AccountStatus;
+import com.app.banking.model.AccountType;
+import com.app.banking.model.User;
+
+public class UserInfoServiceImpl implements UserInfoService{
+	
+	private UserDAO dao = new UserDAOImpl();
+
+	@Override
+	public User getUserInfo(String username, String password) throws BusinessException, UserException {
+		//we can have validation in this service, skipping for simplicity
+		User user = new User();
+		user = (User) dao.getUserByUsername(username);
+		return user;
+	}
+
+	@Override
+	public List<Account> getUserAccount(String username) throws BusinessException, UserException {
+		// TODO Auto-generated method stub
+		Account account = new Account();
+		account.setBalance(1234.12);
+		account.setAccountId(1234);
+		account.setType(new AccountType(1,"checking"));
+		account.setStatus(new AccountStatus(1,"pending"));
+		account.setUsername(username);
+		List<Account> accountList = new ArrayList<Account>();
+		accountList.add(account);
+		accountList.add(account);
+		accountList.add(account);
+		return accountList;
+	}
+
+	@Override
+	public boolean updateUserInfo(User user)
+			throws BusinessException, UserException {
+		
+		//updatedUser object
+		User updatedUser = (User) user;
+		return dao.updateUser(updatedUser);
+	}
+
+
+}
