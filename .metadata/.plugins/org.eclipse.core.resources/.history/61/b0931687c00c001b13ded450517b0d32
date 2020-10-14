@@ -1,0 +1,62 @@
+package com.app.banking.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Servlet implementation class DepositController
+ */
+public class DepositController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DepositController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+		
+		response.setContentType("text/html");
+		RequestDispatcher requestDispatcher = null;
+		PrintWriter out = response.getWriter();
+		System.out.println("DepositController() BEFORE requestDispatcher...");
+		requestDispatcher = request.getRequestDispatcher("accounts");
+		requestDispatcher.include(request, response);
+
+		System.out.println("DepositController() AFTER requestDispatcher...");
+		out.print("<h1 class='subHeading1'>Transcation - IOL</h1>");
+		out.print("<h2>");
+		out.print("<center><span>it is depositting account: " + request.getParameter("accountId")
+				+ "depositAmount: " + request.getParameter("depositAmount")+"</span></center>");
+		out.print("</h2>");
+		
+		////debug purpose hard code 
+		//hidden parameter to carry to accounts page
+		out.print("<input type='hidden' name='accountBalance' value='1234'>");
+		//
+		
+		
+		///
+		//AccountTranscationService accountService = new AccountTranscationServiceImpl();
+		
+		//boolean isSuccess = false;
+		//isSuccess=accountService.depositAccount(Integer.parseInt(request.getParameter("accountId")), Double.parseDouble(request.getParameter("depositAmount")));
+		
+	}
+
+}

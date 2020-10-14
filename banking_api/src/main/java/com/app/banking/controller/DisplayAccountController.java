@@ -44,11 +44,9 @@ public class DisplayAccountController extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 
-		UserInfoService service = new UserInfoServiceImpl();
+		UserInfoService userService = new UserInfoServiceImpl();
 		RequestDispatcher requestDispatcher = null;
 		PrintWriter out = response.getWriter();
-
-		
 
 		try {
 			// debug
@@ -56,14 +54,17 @@ public class DisplayAccountController extends HttpServlet {
 			//
 			
 			User userSession = (User) session.getAttribute("user");
-			
-			User user = service.getUserInfo(userSession.getUsername(), userSession.getPassword());
-			List<Account> accountList = service.getUserAccount(userSession.getUsername());
+			User user = userService.getUserInfo(userSession.getUsername(), userSession.getPassword());
+			List<Account> accountList = userService.getUserAccount(userSession.getUsername());
 			requestDispatcher = request.getRequestDispatcher("userInfo.html");
 			requestDispatcher.include(request, response);
 
-			out.print("<article><h1>");
-
+			//article layer
+			out.print("<article>");
+			out.print("<h1 class='subHeading1'>Account Information</h1>");
+			out.print("<h2><table>");
+			//
+			
 			for (int i = 0; i < accountList.size(); i++) {
 				Account account = accountList.get(i);
 
@@ -86,15 +87,30 @@ public class DisplayAccountController extends HttpServlet {
 				NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US); 
 				String convertedBalance = n.format(account.getBalance());
 				out.print("<td>" + convertedBalance + "</td></tr>");
-
+				//
+				//shows operations only if the account is open
+				if (account.getStatus().getStatusId() == 2) {
+					out.print("<tr><td colspan='4'>");
+					out.print("<form action='accounts' method='post'>");
+					//hidden parameter to carry to accounts page
+					out.print("<input type='hidden' name='accountId' value='");
+					out.print(account.getAccountId()+"'>");
+					out.print("<input type='hidden' name='accountBalance' value='");
+					out.print(account.getBalance()+"'>");
+					//
+					out.print("<button class='smallButton' type='submit' name='accountAccess' value='deposit'>Deposit</button>");
+					out.print("<button class='smallButton' type='submit' name='accountAccess' value='withdraw'>Withdraw</button>");
+					out.print("<button class='smallButton' type='submit' name='accountAccess' value='transfer'>Transfer</button>");
+					out.print("</form>");
+					out.print("</tr></td>");
+				}
+				
 				out.print("</table>");
 
-				out.print("<form action='updateUserInfo' method='post'>");
-				out.print("<button type='submit'>Modify Info</button>");
-				out.print("</form>");
+				out.print("<br>");
 			}
 
-			out.print("</h1></article>");
+			out.print("</h2></article>");
 
 		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");

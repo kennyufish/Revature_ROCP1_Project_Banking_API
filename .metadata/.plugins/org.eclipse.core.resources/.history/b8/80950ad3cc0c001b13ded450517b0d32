@@ -1,0 +1,78 @@
+package com.app.banking.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.app.banking.exception.BusinessException;
+import com.app.banking.model.Account;
+import com.app.banking.service.AccountInforService;
+import com.app.banking.service.AccountInforServiceImpl;
+import com.app.banking.service.AccountTranscationService;
+import com.app.banking.service.AccountTranscationServiceImpl;
+import com.app.banking.service.UserInfoService;
+import com.app.banking.service.UserInfoServiceImpl;
+
+/**
+ * Servlet implementation class DepositController
+ */
+public class DepositController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DepositController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+		
+		response.setContentType("text/html");
+		RequestDispatcher requestDispatcher = null;
+		PrintWriter out = response.getWriter();
+
+		UserInfoService userService = new UserInfoServiceImpl();
+		AccountInforService accountService = new AccountInforServiceImpl();
+		AccountTranscationService accountTranscationService = new AccountTranscationServiceImpl();
+		
+		Account account;
+		try {
+			account = accountService.getAccountById(Integer.parseInt(request.getParameter("accountId")));
+			accountTranscationService.depositAccount(account.getAccountId(), Double.parseDouble(request.getParameter("depositAmount")));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		out.print("<div><h1 class='topNoticeUpdateSuccess'>");
+		out.print("Account: "+request.getParameter("accountId")+" + $ "+request.getParameter("depositAmount")+"<h1></div>");
+		
+		requestDispatcher = request.getRequestDispatcher("accounts");
+		requestDispatcher.include(request, response);
+		
+		///
+		//AccountTranscationService accountService = new AccountTranscationServiceImpl();
+		
+		//boolean isSuccess = false;
+		//isSuccess=accountService.depositAccount(Integer.parseInt(request.getParameter("accountId")), Double.parseDouble(request.getParameter("depositAmount")));
+		
+	}
+
+}

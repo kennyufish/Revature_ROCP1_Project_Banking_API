@@ -1,0 +1,14 @@
+package com.app.banking.service;
+
+import com.app.banking.exception.BusinessException;
+import com.app.banking.model.Account;
+
+public class AccountInforServiceImpl implements AccountInforService {
+
+	@Override
+	public Account getAccountById(int accountId) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

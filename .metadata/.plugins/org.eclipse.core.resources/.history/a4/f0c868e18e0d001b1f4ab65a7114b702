@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-wirdth, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="bankapi.css"/>
+<style>
+* {
+	font-size: 20px;
+}
+article{
+	background-color: #fddfdf;
+}
+
+.subHeading1 {
+	background-color: #ff0000;
+}
+
+nav{
+	background-color: #ff8080;
+}
+
+article{
+	background-color: #fddfdf;
+}
+
+
+</style>
+<title>User Panel</title>
+</head>
+<body>
+	<header class="adminInfoHeader">Banking API - Administration Panel</header>
+	<section>
+		<nav class="adminInfoNav">
+		
+			<form action="addUserAccount" method="post">
+				<button class="adminNavButton" type="submit">Add New User/Account</button>
+			</form>
+			<form action="findUpdateUsers" method="get">
+				<button class="adminNavButton" type="submit">Find/Update Users</button>
+			</form>
+			<form action="findUpdateAccounts" method="post">
+				<button class="adminNavButton" type="submit">Find/Update Accounts</button>
+			</form>
+
+
+			<form action="logout" method="post">
+				<button class="logoutButton" type="submit">Logout</button>
+			</form>
+		</nav>
+	</section>
+
+</body>
+</html>

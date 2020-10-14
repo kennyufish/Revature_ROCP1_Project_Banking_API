@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.app.banking.database.utility.MySqlConnection;
 import com.app.banking.exception.UserException;
@@ -69,6 +70,12 @@ public class UserDAOImpl implements UserDAO {
 			throw new UserException("Contact SYSADMIN : UserDAOImpl ERROR...");
 		}
 
+	}
+
+	@Override
+	public List<User> getAllUsers() throws UserException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -59,9 +59,9 @@ public class UpdateUserInfoController extends HttpServlet {
 		
 		try {
 			if(service.updateUserInfo(userSession)) {
-				out.print("<div><h1 style='color:black;background-color:green;width:100%;padding:20px;'>Info Updated!<h1></div>");
+				out.print("<div><h1 class='topNoticeUpdateSuccess'>Info Updated!<h1></div>");
 			}else {
-				out.print("<div><h1 style='color:black;background-color:red;width:100%;padding:20px;'>Update Failed!<h1></div>");
+				out.print("<div><h1 class='topNoticeUpdateFail'>Update Failed!<h1></div>");
 			}
 		} catch (BusinessException | UserException e) {
 

@@ -1,0 +1,127 @@
+package com.app.banking.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.app.banking.exception.BusinessException;
+import com.app.banking.exception.UserException;
+import com.app.banking.model.Account;
+import com.app.banking.model.User;
+import com.app.banking.service.UserInfoService;
+import com.app.banking.service.UserInfoServiceImpl;
+
+/**
+ * Servlet implementation class DisplayAccountController
+ */
+public class DisplayAccountController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DisplayAccountController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html");
+
+		HttpSession session = request.getSession(false);
+
+		UserInfoService userService = new UserInfoServiceImpl();
+		RequestDispatcher requestDispatcher = null;
+		PrintWriter out = response.getWriter();
+
+		try {
+			// debug
+			System.out.println("session id in DisplayAccountController(): " + session.getId());
+			//
+			
+			User userSession = (User) session.getAttribute("user");
+			User user = userService.getUserInfo(userSession.getUsername(), userSession.getPassword());
+			List<Account> accountList = userService.getUserAccount(userSession.getUsername());
+			requestDispatcher = request.getRequestDispatcher("userInfo.html");
+			requestDispatcher.include(request, response);
+
+			//article layer
+			out.print("<article>");
+			out.print("<h1 class='subHeading1'>Account Information</h1>");
+			out.print("<h2><table>");
+			//
+			
+			for (int i = 0; i < accountList.size(); i++) {
+				Account account = accountList.get(i);
+
+				// table formatting
+				out.print("<table>");
+
+				out.print("<tr><th><b>User</b></th>");
+				out.print("<td colspan='3'>" + user.getLastName() + " , " + user.getFirstName() + "</td></tr>");
+
+				out.print("<tr><th><b>Account ID</b></th>");
+				out.print("<td>" + account.getAccountId() + "</td>");
+				out.print("<th><b>Account Type</b></th>");
+				out.print("<td>" + account.getType().getType() + "</td></tr>");
+
+				out.print("<tr><th><b>Account Status</b></th>");
+				out.print("<td>" + account.getStatus().getStatus() + "</td>");
+				out.print("<th><b>Account Balance</b></th>");
+				
+				//CONVERT balance TO currency
+				NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US); 
+				String convertedBalance = n.format(account.getBalance());
+				out.print("<td>" + convertedBalance + "</td></tr>");
+				//
+
+				out.print("<tr><td colspan='4'>");
+
+				out.print("<form action='accounts' method='post'>");
+				//hidden parameter to carry to accounts page
+				out.print("<input type='hidden' name='accountId' value='");
+				out.print(account.getAccountId()+"'>");
+				out.print("<input type='hidden' name='accountBalance' value='");
+				out.print(account.getBalance()+"'>");
+				//
+				out.print("<button class='smallButton' type='submit' name='accountAccess' value='deposit'>Deposit</button>");
+				out.print("<button class='smallButton' type='submit' name='accountAccess' value='withdraw'>Withdraw</button>");
+				out.print("<button class='smallButton' type='submit' name='accountAccess' value='transfer'>Transfer</button>");
+				out.print("</form>");
+				
+				out.print("</tr></td>");
+				out.print("</table>");
+
+				out.print("<br>");
+			}
+
+			out.print("</h2></article>");
+
+		} catch (BusinessException | UserException e) {
+			requestDispatcher = request.getRequestDispatcher("index.html");
+			requestDispatcher.include(request, response);
+			out.print("<center><span style='color:red;'>" + e.getMessage() + "</span></center>");
+		} catch (NullPointerException e) {
+			requestDispatcher = request.getRequestDispatcher("index.html");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			out.print("<div><h1 class='topNoticeWarning'>*The requested action is not permitted*<h1></div>");
+			requestDispatcher.include(request, response);
+		}
+
+	}
+
+}

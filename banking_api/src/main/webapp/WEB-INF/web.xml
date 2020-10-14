@@ -104,4 +104,24 @@
     <servlet-name>AccountTranscationController</servlet-name>
     <url-pattern>/accounts</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DisplayContactsController</display-name>
+    <servlet-name>DisplayContactsController</servlet-name>
+    <servlet-class>com.app.banking.controller.DisplayContactsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DisplayContactsController</servlet-name>
+    <url-pattern>/contacts</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindUpdateUsersController</display-name>
+    <servlet-name>FindUpdateUsersController</servlet-name>
+    <servlet-class>com.app.banking.controller.FindUpdateUsersController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindUpdateUsersController</servlet-name>
+    <url-pattern>/findUpdateUsers</url-pattern>
+  </servlet-mapping>
 </web-app>
