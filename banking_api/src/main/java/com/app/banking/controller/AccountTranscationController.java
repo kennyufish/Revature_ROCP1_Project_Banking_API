@@ -39,11 +39,14 @@ public class AccountTranscationController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
+	//checked
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html");
-		HttpSession session = request.getSession(false);
 
+		HttpSession session = request.getSession(false);
+		
+		response.setContentType("text/html");
 		RequestDispatcher requestDispatcher = null;
 		PrintWriter out = response.getWriter();
 		
@@ -51,14 +54,17 @@ public class AccountTranscationController extends HttpServlet {
 		AccountInforService accountService = new AccountInforServiceImpl();
 
 		try {
-			
-			// dispatch
-			requestDispatcher = request.getRequestDispatcher("userInfo.html");
-			requestDispatcher.include(request, response);
+			if (session.getAttribute("accessRole").equals("admin")) {
+				requestDispatcher = request.getRequestDispatcher("adminInfo.html");
+				requestDispatcher.include(request, response);
+			}else if (session.getAttribute("accessRole").equals("standard")){
+				requestDispatcher = request.getRequestDispatcher("userInfo.html");
+				requestDispatcher.include(request, response);
+			}
 			//session data
 			User userSession = (User) session.getAttribute("user");
 			// get user and specific account objects 
-			User user = userService.getUserInfo(userSession.getUsername(), userSession.getPassword());
+			User user = userService.getUserInfo(userSession.getUsername());
 			Account account = accountService.getAccountById(Integer.parseInt(request.getParameter("accountId")));
 			
 			// article layer
@@ -174,8 +180,9 @@ public class AccountTranscationController extends HttpServlet {
 			requestDispatcher.include(request, response);
 		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			out.print("<div><h1 class='topNoticeWarning'>"+e.getMessage() +"<h1></div>");
 			requestDispatcher.include(request, response);
-			out.print("<center><span style='color:red;'>" + e.getMessage() + "</span></center>");
 		}
 	}
 

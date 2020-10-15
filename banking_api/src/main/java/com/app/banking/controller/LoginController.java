@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.app.banking.exception.BusinessException;
+import com.app.banking.exception.UserException;
 import com.app.banking.model.User;
 import com.app.banking.service.LoginService;
 import com.app.banking.service.LoginServiceImpl;
+import com.app.banking.service.UserInfoService;
+import com.app.banking.service.UserInfoServiceImpl;
 
 /**
  * Servlet implementation class LoginController
@@ -36,6 +39,9 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
+	
+	//checked
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -43,10 +49,12 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		response.setContentType("text/html");
 		User user = new User();
+
 		user.setUsername(request.getParameter("username"));
 		user.setPassword(request.getParameter("password"));
 
 		LoginService service = new LoginServiceImpl();
+		UserInfoService userService = new UserInfoServiceImpl();
 		RequestDispatcher requestDispatcher = null;
 		PrintWriter out = response.getWriter();
 
@@ -54,13 +62,26 @@ public class LoginController extends HttpServlet {
 
 		try {
 			if (service.isValidUserCredentials(user)) {
-				requestDispatcher=request.getRequestDispatcher("userInfo");
-				requestDispatcher.forward(request, response);
+				User accessUser = userService.getUserInfo(request.getParameter("username"));
+				if (accessUser.getRole().getRoleId() == 2 || accessUser.getRole().getRoleId() == 1) {
+					session.setAttribute("accessRole", "admin");
+					requestDispatcher = request.getRequestDispatcher("addUserAccount");
+					requestDispatcher.forward(request, response);
+				} else {
+					session.setAttribute("accessRole", "standard");
+					requestDispatcher = request.getRequestDispatcher("userInfo");
+					requestDispatcher.forward(request, response);
+				}
 			}
-		} catch (BusinessException e) {
+		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			out.print("<div><h1 class='topNoticeWarning'>"+e.getMessage()+"<h1></div>");
+			out.print("<div><h1 class='topNoticeWarning'>" + e.getMessage() + "<h1></div>");
+			requestDispatcher.include(request, response);
+		}catch (NullPointerException e) {
+			requestDispatcher = request.getRequestDispatcher("index.html");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			out.print("<div><h1 class='topNoticeWarning'>*The requested action is not permitted*<h1></div>");
 			requestDispatcher.include(request, response);
 		}
 

@@ -1,0 +1,85 @@
+package com.app.banking.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.app.banking.exception.BusinessException;
+import com.app.banking.model.Account;
+import com.app.banking.model.AccountStatus;
+import com.app.banking.model.AccountType;
+import com.app.banking.service.AccountInforService;
+import com.app.banking.service.AccountInforServiceImpl;
+
+/**
+ * Servlet implementation class EditAccountInfoController
+ */
+public class EditAccountInfoController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditAccountInfoController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// need a session security, add once all functions are done session=null->no
+		// access
+
+		response.setContentType("text/html");
+		AccountInforService accountService = new AccountInforServiceImpl();
+		RequestDispatcher requestDispatcher = null;
+		PrintWriter out = response.getWriter();
+
+
+		try {
+			Account account = accountService.getAccountById(Integer.parseInt(request.getParameter("accountId")));
+			
+			account.setBalance(Double.parseDouble(request.getParameter("balance")));
+			
+			AccountStatus status = new AccountStatus();
+			status.setStatusId(Integer.parseInt(request.getParameter("statusId")));
+			account.setStatus(status);
+			
+			AccountType type = new AccountType();
+			type.setTypeId(Integer.parseInt(request.getParameter("typeId")));
+			account.setType(type);
+			
+			if (accountService.editAccountByAdmin(account)) {
+				out.print("<div><h1 class='topNoticeUpdateSuccess'>Acount Updated!<h1></div>");
+			} else {
+				out.print("<div><h1 class='topNoticeUpdateFail'>Update Failed!<h1></div>");
+			}
+		} catch (BusinessException e) {
+			requestDispatcher = request.getRequestDispatcher("admin.html");
+			out.print("<center><span style='color:red;'>" + e.getMessage() + "</span></center>");
+			requestDispatcher.include(request, response);
+		}
+		requestDispatcher = request.getRequestDispatcher("viewUserInfo");
+		requestDispatcher.include(request, response);
+	}
+
+}

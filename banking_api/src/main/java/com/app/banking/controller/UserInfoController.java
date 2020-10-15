@@ -40,20 +40,23 @@ public class UserInfoController extends HttpServlet {
 
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(false);
+		//testing
+		session.setAttribute("accessRole", "standard");
+		//
 		UserInfoService userService = new UserInfoServiceImpl();
 		RequestDispatcher requestDispatcher = null;
 		PrintWriter out = response.getWriter();
 
 		try {
 			User userSession = (User) session.getAttribute("user");
-			User user = userService.getUserInfo(userSession.getUsername(), userSession.getPassword());
+			User user = userService.getUserInfo(userSession.getUsername());
 			requestDispatcher = request.getRequestDispatcher("userInfo.html");
 			requestDispatcher.include(request, response);
 
 			out.print("<form action='updateUserInfo' method='post'>");
 			out.print("<article>");
 			out.print("<h1 class='subHeading1'>User Information - Welcome Back, "+user.getFirstName()+"</h1>");
-			out.print("<h2><table>");
+			out.print("<h1><table>");
 
 			out.print("<tr><th>User Role</th><td>"+user.getRole().getRole()+"</td></tr>");
 			out.print("<tr><th>User ID</th><td>"+user.getUserId()+"</td></tr>");
@@ -76,7 +79,7 @@ public class UserInfoController extends HttpServlet {
 			out.print("<button class='smallButton' type='submit'>Modify Info</button>");
 			out.print("</form>");
 
-			out.print("</h2></article>");
+			out.print("</h1></article>");
 
 		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");

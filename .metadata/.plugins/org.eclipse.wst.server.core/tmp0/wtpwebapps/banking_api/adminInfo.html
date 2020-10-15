@@ -24,7 +24,7 @@ button {
 	background-color: #0080c0;
 }
 </style>
-<title>User Panel</title>
+<title>Admin/Employee Panel</title>
 </head>
 <body>
 	<header>Banking API - Administration Panel</header>
@@ -36,12 +36,11 @@ button {
 			<form action="findUpdateUsers" method="get">
 				<button type="submit">Find/Update Users</button>
 			</form>
-			<form action="findUpdateAccounts" method="post">
+			<form action="findUpdateAccounts" method="get">
 				<button type="submit">Find/Update Accounts</button>
 			</form>
-
 			<form action="logout" method="post">
-				<button class="logoutButton" type="submit">Logout</button>
+				<button class="logoutButton" style="margin-top:100px;" type="submit">Logout</button>
 			</form>
 		</nav>
 	</section>

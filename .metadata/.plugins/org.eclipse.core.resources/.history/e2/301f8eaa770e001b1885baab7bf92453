@@ -1,0 +1,79 @@
+package com.app.banking.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.app.banking.exception.BusinessException;
+import com.app.banking.exception.UserException;
+import com.app.banking.model.Role;
+import com.app.banking.model.User;
+import com.app.banking.service.AccountInforService;
+import com.app.banking.service.AccountInforServiceImpl;
+import com.app.banking.service.UserInfoService;
+import com.app.banking.service.UserInfoServiceImpl;
+
+/**
+ * Servlet implementation class RegisterUserController
+ */
+public class RegisterUserController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public RegisterUserController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		RequestDispatcher requestDispatcher = null;
+		PrintWriter out = response.getWriter();
+		
+		UserInfoService userService = new UserInfoServiceImpl();
+		AccountInforService accountService = new AccountInforServiceImpl();
+		
+		User user = new User();
+		user.setUsername(request.getParameter("username"));
+		user.setFirstName(request.getParameter("firstName"));
+		user.setLastName(request.getParameter("lastName"));
+		user.setEmail(request.getParameter("email"));
+		user.setPassword(request.getParameter("password"));
+		user.setRole(new Role(3,"Standard"));
+		
+		try {
+			if(userService.addUser(user)) {
+				User addedUser = userService.getUserInfo(user.getUsername());
+				out.print("<div><h1 class='topNoticeUpdateSuccess'>");
+				out.print("Username: "+addedUser.getUsername()+ "with User ID: "+addedUser.getUserId()()+" has been successfully registered, Account #"+"wait"+"<h1></div>");
+			}else {
+				out.print("<div><h1 class='topNoticeUpdateFail'>");
+				out.print("UNSUCCESSFUL REGISTRATION - PLEASE TRY AGAIN"+"<h1></div>");
+			}
+			requestDispatcher = request.getRequestDispatcher("addUserAccount");
+			requestDispatcher.include(request, response);
+		} catch (BusinessException | UserException e) {
+			requestDispatcher = request.getRequestDispatcher("addUserAccount");
+			requestDispatcher.include(request, response);
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			out.print("<div><h1 class='topNoticeWarning'>"+e.getMessage()+"<h1></div>");
+		} catch (NullPointerException e) {
+			requestDispatcher = request.getRequestDispatcher("index.html");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			out.print("<div><h1 class='topNoticeWarning'>*The requested action is not permitted*<h1></div>");
+			requestDispatcher.include(request, response);
+		}
+		
+	}
+
+}

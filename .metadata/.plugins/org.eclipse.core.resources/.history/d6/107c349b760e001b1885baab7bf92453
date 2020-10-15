@@ -1,0 +1,59 @@
+package com.app.banking.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.banking.dao.AccountDAO;
+import com.app.banking.dao.AccountDAOImpl;
+import com.app.banking.exception.BusinessException;
+import com.app.banking.model.Account;
+
+public class AccountInforServiceImpl implements AccountInforService {
+
+	private AccountDAO accountDao = new AccountDAOImpl();
+	
+	@Override
+	public Account getAccountById(int accountId) throws BusinessException {
+		Account account = new Account();
+		account = (Account) accountDao.getAccountById(accountId);
+		return account;
+	}
+
+	@Override
+	public boolean validateAccountById(int accountId) throws BusinessException {
+		return accountDao.validateAccountById(accountId);
+	}
+
+	@Override
+	public List<Account> getAllAccounts() throws BusinessException {
+		List<Account> accountList = new ArrayList<Account>();
+		accountList = accountDao.getAllAccounts();
+		return accountList;
+	}
+
+	@Override
+	public List<Account> getAccountsByUserId(int userId) throws BusinessException {
+		List<Account> accountList = new ArrayList<Account>();
+		accountList = accountDao.getAccountByUserId(userId);
+		return accountList;
+	}
+
+	@Override
+	public List<Account> getAccountsByStatusId(int statusId) throws BusinessException {
+		List<Account> accountList = new ArrayList<Account>();
+		accountList = accountDao.getAccountsByStatusId(statusId);
+		return accountList;
+	}
+
+	@Override
+	public boolean editAccountByAdmin(Account account) throws BusinessException {
+		return accountDao.editAccountByAdmin(account);
+	}
+
+	@Override
+	public boolean addAccount(String username) throws BusinessException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

@@ -1,0 +1,187 @@
+* {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	box-sizing: border-box;
+}
+
+.loginInput {
+	width: 100%;
+	padding: 10px 15px;
+	margin: 8px 0;
+	display: inline-block;
+	boxing-sizing: border-box;
+}
+
+.loginLayout {
+	font-size: 20px;
+	background-color: powderblue;
+	border: 2px solid black;
+	padding: 30px;
+	width: 35%;
+	margin: 20px auto;
+}
+
+.topNoticeGreen {
+	color: black;
+	background-color: green;
+	width: 100%;
+	padding: 20px;
+	text-align: center;
+}
+
+.topNoticeWarning {
+	color: black;
+	background-color: red;
+	width: 100%;
+	padding: 20px;
+	text-align: center;
+}
+
+.topNoticeUpdateSuccess {
+	color: white;
+	background-color: green;
+	width: 100%;
+	padding: 20px;
+	text-align:left;
+}
+
+.topNoticeUpdateFail {
+	color: black;
+	background-color: red;
+	width: 100%;
+	padding: 20px;
+	text-align:left;
+}
+
+.userInfoHeader {
+	background-color: #007AA6;
+}
+
+.userModifyInput {
+	width: 100%;
+}
+
+.UserLayout {
+	font-size: 20px;
+	background-color: powderblue;
+	border: 2px solid black;
+	padding: 20px;
+	width: 100%;
+	height: 550px;
+	margin: 0 auto;
+}
+
+.logoutButton {
+	background-color: red;
+	color: white;
+	padding: 12px 15px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	margin-top:100px;
+}
+
+.subHeading1 {
+	font-size: 25px;
+	background-color: #007AA6;
+	color: white;
+	padding: 12px 10px;
+	margin: 8px 0;
+	border: none;
+	width: 800px;
+	display: block;
+}
+
+.smallButton {
+	background-color: #804000;
+	color: white;
+	padding: 12px 10px;
+	margin: 8px 0;
+	margin-right:8px;
+	border: none;
+	cursor: pointer;
+	width: 150px;
+}
+
+.smallButtonFullWidth {
+	background-color: #804000;
+	color: white;
+	padding: 12px 10px;
+	margin: 8px 0;
+	margin-right:8px;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+.findBar{
+	width: 640px;
+	display: inline;
+	float: left;
+	border-style:hidden;
+}
+
+.findButton{
+	float:left;
+	margin-left:10px;
+}
+
+div.smallFont{
+	font-size = 10px;
+}
+
+/*Common styling*/
+header{
+	opacity: 0.7;
+	color: white;
+	padding: 30px;
+	font-size: 30px;
+	height: 100px;
+	width: 100%;
+}
+nav{
+	float: left;
+	width: 200px;
+	background-color: #5BBCDF;
+	padding: 20px;
+	height: 500px;
+}
+article {
+	witdth: 100%;
+	height: 500px;
+	background-color: powderblue;
+	padding: 20px;
+	margin-left: 200px;
+	overflow: auto;
+}
+
+th {
+	background-color: #007AA6;
+	color: white;
+}
+
+tr:hover {
+	background-color: #7FA574;
+}
+
+table, td, th {
+	border-collapse: collapse;
+	text-align: left;
+	border: 1px solid black;
+	padding: 8px 15px;
+	width:800px;
+}
+
+button {
+	background-color: #7FA574;
+	color: white;
+	padding: 12px 10px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+button:hover {
+	opacity: 0.7
+}

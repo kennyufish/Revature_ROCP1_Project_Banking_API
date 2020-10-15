@@ -43,7 +43,6 @@ public class DisplayAccountController extends HttpServlet {
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession(false);
-
 		UserInfoService userService = new UserInfoServiceImpl();
 		RequestDispatcher requestDispatcher = null;
 		PrintWriter out = response.getWriter();
@@ -54,8 +53,9 @@ public class DisplayAccountController extends HttpServlet {
 			//
 			
 			User userSession = (User) session.getAttribute("user");
-			User user = userService.getUserInfo(userSession.getUsername(), userSession.getPassword());
+			User user = userService.getUserInfo(userSession.getUsername());
 			List<Account> accountList = userService.getUserAccount(userSession.getUsername());
+			
 			requestDispatcher = request.getRequestDispatcher("userInfo.html");
 			requestDispatcher.include(request, response);
 
@@ -114,8 +114,8 @@ public class DisplayAccountController extends HttpServlet {
 
 		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
-			requestDispatcher.include(request, response);
 			out.print("<center><span style='color:red;'>" + e.getMessage() + "</span></center>");
+			requestDispatcher.include(request, response);
 		} catch (NullPointerException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

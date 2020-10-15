@@ -1,0 +1,86 @@
+package com.app.banking.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.app.banking.exception.BusinessException;
+import com.app.banking.exception.UserException;
+import com.app.banking.model.Account;
+import com.app.banking.model.Role;
+import com.app.banking.model.User;
+import com.app.banking.service.AccountInforService;
+import com.app.banking.service.AccountInforServiceImpl;
+import com.app.banking.service.UserInfoService;
+import com.app.banking.service.UserInfoServiceImpl;
+
+/**
+ * Servlet implementation class EditAccountInfoController
+ */
+public class EditAccountInfoController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditAccountInfoController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// need a session security, add once all functions are done session=null->no
+		// access
+
+		response.setContentType("text/html");
+		AccountInforService accountService = new AccountInforServiceImpl();
+		RequestDispatcher requestDispatcher = null;
+		PrintWriter out = response.getWriter();
+
+
+		try {
+			Account account = accountService.getAccountById(Integer.parseInt(request.getParameter("accountId")));
+
+			user.setEmail(request.getParameter("email"));
+			user.setFirstName(request.getParameter("firstName"));
+			user.setLastName(request.getParameter("lastName"));
+			user.setPassword(request.getParameter("password"));
+
+			Role role = new Role();
+			role.setRoleId(Integer.parseInt(request.getParameter("roleid")));
+			user.setRole(role);
+			if (service.editUserByAdmin(user)) {
+				out.print("<div><h1 class='topNoticeUpdateSuccess'>Info Updated!<h1></div>");
+			} else {
+				out.print("<div><h1 class='topNoticeUpdateFail'>Update Failed!<h1></div>");
+			}
+		} catch (BusinessException | UserException e) {
+			out.print("<center><span style='color:red;'>" + e.getMessage() + "</span></center>");
+			requestDispatcher = request.getRequestDispatcher("admin.html");
+			requestDispatcher.include(request, response);
+		}
+		requestDispatcher = request.getRequestDispatcher("viewUserInfo");
+		requestDispatcher.include(request, response);
+	}
+
+}

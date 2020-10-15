@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,6 @@ import com.app.banking.exception.UserException;
 import com.app.banking.model.Account;
 import com.app.banking.model.AccountStatus;
 import com.app.banking.model.AccountType;
-import com.app.banking.model.Role;
-import com.app.banking.model.User;
 
 public class AccountDAOImpl implements AccountDAO {
 	
@@ -59,7 +58,6 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public Account getAccountById(int accountId) throws BusinessException {
-		
 		Account account = new Account();
 		try (Connection connection = MySqlConnection.getConnection()) {
 			String sql = "SELECT username,accountid,balance,account.statusid,status,account.typeid,type FROM bankapi.account " + 
@@ -186,6 +184,159 @@ public class AccountDAOImpl implements AccountDAO {
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new BusinessException("Contact SYSADMIN : AccountDAOImpl():validateAccountById() ERROR...");
+		}
+	}
+
+	@Override
+	public List<Account> getAllAccounts() throws BusinessException {
+		List<Account> accountList = new ArrayList<Account>();
+		
+		try (Connection connection = MySqlConnection.getConnection()) {
+			String sql = "SELECT accountid,username,balance,account.statusid,status,account.typeid,type FROM bankapi.account " + 
+					"INNER JOIN bankapi.accountstatus ON account.statusid=accountstatus.statusid " + 
+					"INNER JOIN bankapi.accounttype ON account.typeid=accounttype.typeid";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = prepStatement.executeQuery();
+			System.out.println(prepStatement);
+			
+			while (resultSet.next()) {
+				Account account = new Account();
+				account.setAccountId(resultSet.getInt("accountId"));
+				account.setUsername(resultSet.getString("username"));
+				account.setType(new AccountType(resultSet.getInt("typeId"),resultSet.getString("type")));
+				account.setStatus(new AccountStatus(resultSet.getInt("statusId"),resultSet.getString("status")));
+				account.setBalance(resultSet.getDouble("balance"));
+				accountList.add(account);
+			}
+			
+			resultSet.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Contact SYSADMIN : AccountDAOImpl():getAllAccounts() ERROR...");
+		}
+
+		return accountList;
+	}
+
+	@Override
+	public List<Account> getAccountByUserId(int userId) throws BusinessException {
+		List<Account> accountList = new ArrayList<Account>();
+		
+		try (Connection connection = MySqlConnection.getConnection()) {
+			System.out.println("inside AccDAOImpl();");
+			String sql = "SELECT user.username,accountid,balance,account.statusid,status,account.typeid,type FROM bankapi.user " + 
+					"INNER JOIN bankapi.account ON account.username=user.username " + 
+					"INNER JOIN bankapi.accountstatus ON account.statusid=accountstatus.statusid " + 
+					"INNER JOIN bankapi.accounttype ON account.typeid=accounttype.typeid " + 
+					"WHERE userid=?;";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql);
+			prepStatement.setInt(1, userId);
+
+			System.out.println("about to execute()....");
+			ResultSet resultSet = prepStatement.executeQuery();
+
+			System.out.println("executeQuery()....");
+			while (resultSet.next()) {
+				Account account = new Account();
+				account.setAccountId(resultSet.getInt("accountId"));
+				account.setBalance(resultSet.getDouble("balance"));
+				account.setStatus(new AccountStatus(resultSet.getInt("statusId"),resultSet.getString("status")));
+				account.setType(new AccountType(resultSet.getInt("typeId"),resultSet.getString("type")));
+				account.setUsername(resultSet.getString("username"));
+				accountList.add(account);
+			}
+
+			resultSet.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Contact SYSADMIN : AccountDAOImpl():getAccountByUserId() ERROR...");
+		}
+
+		return accountList;
+	}
+
+	@Override
+	public List<Account> getAccountsByStatusId(int statusId) throws BusinessException {
+		List<Account> accountList = new ArrayList<Account>();
+		try (Connection connection = MySqlConnection.getConnection()) {
+			String sql = "SELECT username,accountid,balance,account.statusid,status,account.typeid,type FROM bankapi.account " + 
+					"INNER JOIN bankapi.accountstatus ON account.statusid=accountstatus.statusid " + 
+					"INNER JOIN bankapi.accounttype ON account.typeid=accounttype.typeid " + 
+					"WHERE accountstatus.statusid=?;";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql);
+			prepStatement.setInt(1, statusId);
+			System.out.println(prepStatement);
+
+			ResultSet resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Account account = new Account();
+				account.setAccountId(resultSet.getInt("accountId"));
+				account.setBalance(resultSet.getDouble("balance"));
+				account.setStatus(new AccountStatus(resultSet.getInt("statusId"),resultSet.getString("status")));
+				account.setType(new AccountType(resultSet.getInt("typeId"),resultSet.getString("type")));
+				account.setUsername(resultSet.getString("username"));
+				accountList.add(account);
+			}
+
+			resultSet.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Contact SYSADMIN : AccountDAOImpl():getAccountsByStatusId() ERROR...");
+		}
+
+		return accountList;
+	}
+
+	@Override
+	public boolean editAccountByAdmin(Account account) throws BusinessException {
+		try (Connection connection = MySqlConnection.getConnection()) {
+			String sql = "UPDATE bankapi.account SET balance=?, statusid=?, typeid=? WHERE account.accountid=?";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql);
+			prepStatement.setDouble(1, account.getBalance());
+			prepStatement.setInt(2, account.getStatus().getStatusId());
+			prepStatement.setInt(3, account.getType().getTypeId());
+			prepStatement.setInt(4, account.getAccountId());
+			System.out.println(prepStatement);
+			
+			if(prepStatement.executeUpdate() != 0) {
+				return true;
+			}else {
+				return false;
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Contact SYSADMIN : AccountDAOImpl():editAccountByAdmin() ERROR...");
+		}
+	}
+
+	@Override
+	public int addAccount(Account account) throws BusinessException {
+		try (Connection connection = MySqlConnection.getConnection()) {
+			String sql = "INSERT INTO bankapi.account (username,balance,statusid,typeid) VALUES (?,?,?,?)";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			prepStatement.setString(1, account.getUsername());
+			prepStatement.setDouble(2, account.getBalance());
+			//new account should be pending
+			prepStatement.setInt(3, 1);
+			prepStatement.setInt(4, account.getType().getTypeId());
+			System.out.println(prepStatement);
+			
+			prepStatement.executeUpdate();
+			ResultSet resultSet = prepStatement.getGeneratedKeys();
+			System.out.println(resultSet);
+			if(resultSet.next()) {
+				return resultSet.getInt(1);
+			}else {
+				return 0;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Contact SYSADMIN : AccountDAOImpl():addAccount() ERROR..."+e.getMessage());
 		}
 	}
 

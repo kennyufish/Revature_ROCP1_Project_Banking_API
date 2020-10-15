@@ -47,30 +47,31 @@ public class TransferController extends HttpServlet {
 
 		try {
 			boolean isSuccess = false;
-			if (!accountService.validateAccountById(Integer.parseInt(request.getParameter("targetAccountId")))) {
+			if ((accountService.validateAccountById(Integer.parseInt(request.getParameter("targetAccountId"))) 
+					&& (Integer.parseInt(request.getParameter("targetAccountId")) != Integer.parseInt(request.getParameter("accountId")))) ) {
+				isSuccess = accountTranscationService.transferAccount(Integer.parseInt(request.getParameter("accountId")),
+						Integer.parseInt(request.getParameter("targetAccountId")), Double.parseDouble(request.getParameter("transferAmount")));
+				if (isSuccess) {
+					
+					//CONVERT balance TO currency
+					NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US); 
+					String convertedBalance = n.format(Double.parseDouble(request.getParameter("transferAmount")));
+					//
+					out.print("<div><h1 class='topNoticeUpdateSuccess'>");
+					out.print(convertedBalance + " has been transferred from Account #"
+							+ request.getParameter("accountId") + " to Account # " 
+							+ request.getParameter("targetAccountId") + "<h1></div>");
+				} else {
+					out.print("<div><h1 class='topNoticeUpdateFail'>");
+					out.print("UNSUCCESSFUL TRANSFER - PLEASE TRY AGAIN" + "<h1></div>");
+				}
+			}else {
 				out.print("<div><h1 class='topNoticeUpdateFail'>");
 				out.print("Invalid Recipient ID" + "<h1></div>");
 			}
-
-			isSuccess = accountTranscationService.transferAccount(Integer.parseInt(request.getParameter("accountId")),
-					Integer.parseInt(request.getParameter("targetAccountId")), Double.parseDouble(request.getParameter("transferAmount")));
-			if (isSuccess) {
-				
-				//CONVERT balance TO currency
-				NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US); 
-				String convertedBalance = n.format(Double.parseDouble(request.getParameter("transferAmount")));
-				//
-				out.print("<div><h1 class='topNoticeUpdateSuccess'>");
-				out.print(convertedBalance + " has been transferred from Account #"
-						+ request.getParameter("accountId") + " to Account # " 
-						+ request.getParameter("targetAccountId") + "<h1></div>");
-			} else {
-				out.print("<div><h1 class='topNoticeUpdateFail'>");
-				out.print("UNSUCCESSFUL TRANSFER - PLEASE TRY AGAIN" + "<h1></div>");
-			}
-
 			requestDispatcher = request.getRequestDispatcher("accounts");
 			requestDispatcher.include(request, response);
+			
 
 		} catch (NullPointerException | NumberFormatException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");

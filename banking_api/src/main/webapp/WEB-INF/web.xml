@@ -62,7 +62,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RegisterUserController</servlet-name>
-    <url-pattern>/register</url-pattern>
+    <url-pattern>/registerUser</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -123,5 +123,115 @@
   <servlet-mapping>
     <servlet-name>FindUpdateUsersController</servlet-name>
     <url-pattern>/findUpdateUsers</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindUserByIdController</display-name>
+    <servlet-name>FindUserByIdController</servlet-name>
+    <servlet-class>com.app.banking.controller.FindUserByIdController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindUserByIdController</servlet-name>
+    <url-pattern>/findUserById</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewUserInfoController</display-name>
+    <servlet-name>ViewUserInfoController</servlet-name>
+    <servlet-class>com.app.banking.controller.ViewUserInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewUserInfoController</servlet-name>
+    <url-pattern>/viewUserInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditUserInfoController</display-name>
+    <servlet-name>EditUserInfoController</servlet-name>
+    <servlet-class>com.app.banking.controller.EditUserInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditUserInfoController</servlet-name>
+    <url-pattern>/editUserInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindUpdateAccountsController</display-name>
+    <servlet-name>FindUpdateAccountsController</servlet-name>
+    <servlet-class>com.app.banking.controller.FindUpdateAccountsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindUpdateAccountsController</servlet-name>
+    <url-pattern>/findUpdateAccounts</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindAccountByAccountIdController</display-name>
+    <servlet-name>FindAccountByAccountIdController</servlet-name>
+    <servlet-class>com.app.banking.controller.FindAccountByAccountIdController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindAccountByAccountIdController</servlet-name>
+    <url-pattern>/findAccountByAccountId</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindAccountByUserIdController</display-name>
+    <servlet-name>FindAccountByUserIdController</servlet-name>
+    <servlet-class>com.app.banking.controller.FindAccountByUserIdController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindAccountByUserIdController</servlet-name>
+    <url-pattern>/findAccountByUserId</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindAccountByStatusController</display-name>
+    <servlet-name>FindAccountByStatusController</servlet-name>
+    <servlet-class>com.app.banking.controller.FindAccountByStatusController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindAccountByStatusController</servlet-name>
+    <url-pattern>/findAccountByStatus</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewAccontInfoController</display-name>
+    <servlet-name>ViewAccontInfoController</servlet-name>
+    <servlet-class>com.app.banking.controller.ViewAccontInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewAccontInfoController</servlet-name>
+    <url-pattern>/viewAccontInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditAccountInfoController</display-name>
+    <servlet-name>EditAccountInfoController</servlet-name>
+    <servlet-class>com.app.banking.controller.EditAccountInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditAccountInfoController</servlet-name>
+    <url-pattern>/editAccountInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddUserAccountController</display-name>
+    <servlet-name>AddUserAccountController</servlet-name>
+    <servlet-class>com.app.banking.controller.AddUserAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddUserAccountController</servlet-name>
+    <url-pattern>/addUserAccount</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegisterAccountController</display-name>
+    <servlet-name>RegisterAccountController</servlet-name>
+    <servlet-class>com.app.banking.controller.RegisterAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterAccountController</servlet-name>
+    <url-pattern>/registerAccount</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -78,7 +78,6 @@
 	border: none;
 	cursor: pointer;
 	width: 100%;
-	margin-top: 150px;
 }
 
 .subHeading1 {
@@ -124,6 +123,10 @@
 .findButton{
 	float:left;
 	margin-left:10px;
+}
+
+div.smallFont{
+	font-size = 10px;
 }
 
 /*Common styling*/
