@@ -71,5 +71,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 	}
 
+	@Override
+	public boolean validateUsername(String username) throws BusinessException, UserException {
+		
+		return userDao.validateUsername(username);
+	}
+
 
 }

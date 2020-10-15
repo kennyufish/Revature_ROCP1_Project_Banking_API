@@ -34,6 +34,7 @@ public class DepositController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    //checked
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html");
@@ -70,8 +71,8 @@ public class DepositController extends HttpServlet {
 			requestDispatcher.include(request, response);
 		} catch (BusinessException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
-			requestDispatcher.include(request, response);
 			out.print("<center><span style='color:red;'>" + e.getMessage() + "</span></center>");
+			requestDispatcher.include(request, response);
 		}
 		
 		

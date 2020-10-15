@@ -15,4 +15,5 @@ public interface UserInfoService {
 	public List<User> getAllUsers() throws BusinessException, UserException;
 	public boolean editUserByAdmin(User user) throws BusinessException, UserException;
 	public int addUser(User user) throws BusinessException, UserException;
+	public boolean validateUsername(String username) throws BusinessException, UserException;
 }

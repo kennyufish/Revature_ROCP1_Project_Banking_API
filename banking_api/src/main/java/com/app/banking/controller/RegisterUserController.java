@@ -76,11 +76,12 @@ public class RegisterUserController extends HttpServlet {
 				out.print("UNSUCCESSFUL REGISTRATION - PLEASE TRY AGAIN" + "<h1></div>");
 			}
 			requestDispatcher = request.getRequestDispatcher("addUserAccount");
+			response.setStatus(HttpServletResponse.SC_CREATED);
 			requestDispatcher.include(request, response);
 		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("addUserAccount");
 			requestDispatcher.include(request, response);
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			out.print("<div><h1 class='topNoticeWarning'>" + e.getMessage() + "<h1></div>");
 		} catch (NullPointerException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");

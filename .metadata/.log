@@ -199,3 +199,13 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.eclipse.jst.server.core 4 0 2020-10-14 08:11:25.427
 !MESSAGE Could not launch in profiling mode because no profilers are configured.
+!SESSION 2020-10-14 14:16:18.979 -----------------------------------------------
+eclipse.buildId=4.14.0.I20191210-0610
+java.version=13.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jst.server.core 4 0 2020-10-14 17:58:33.055
+!MESSAGE Could not launch in profiling mode because no profilers are configured.

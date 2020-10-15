@@ -13,7 +13,6 @@ import com.app.banking.exception.BusinessException;
 import com.app.banking.exception.UserException;
 import com.app.banking.model.Account;
 import com.app.banking.model.AccountType;
-import com.app.banking.model.Role;
 import com.app.banking.model.User;
 import com.app.banking.service.AccountInforService;
 import com.app.banking.service.AccountInforServiceImpl;
@@ -76,12 +75,13 @@ public class RegisterAccountController extends HttpServlet {
 				out.print("UNSUCCESSFUL SUBMISSION - PLEASE TRY AGAIN" + "<h1></div>");
 			}
 			requestDispatcher = request.getRequestDispatcher("addUserAccount");
+			response.setStatus(HttpServletResponse.SC_CREATED);
 			requestDispatcher.include(request, response);
 		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("addUserAccount");
-			requestDispatcher.include(request, response);
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			out.print("<div><h1 class='topNoticeWarning'>" + e.getMessage() + "<h1></div>");
+			requestDispatcher.include(request, response);
 		} catch (NullPointerException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

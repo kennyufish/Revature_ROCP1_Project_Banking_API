@@ -15,6 +15,6 @@ public interface UserDAO {
 	
 	public List<User> getAllUsers() throws UserException;
 	public int addUser(User user) throws UserException;
-	
+	public boolean validateUsername(String username) throws UserException;
 
 }

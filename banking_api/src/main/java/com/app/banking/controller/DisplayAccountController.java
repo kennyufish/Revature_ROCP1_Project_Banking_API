@@ -38,6 +38,7 @@ public class DisplayAccountController extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	//checked
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
@@ -48,73 +49,76 @@ public class DisplayAccountController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			// debug
-			System.out.println("session id in DisplayAccountController(): " + session.getId());
-			//
-			
-			User userSession = (User) session.getAttribute("user");
-			User user = userService.getUserInfo(userSession.getUsername());
-			List<Account> accountList = userService.getUserAccount(userSession.getUsername());
-			
-			requestDispatcher = request.getRequestDispatcher("userInfo.html");
-			requestDispatcher.include(request, response);
+			if (session != null) {
+				User userSession = (User) session.getAttribute("user");
+				User user = userService.getUserInfo(userSession.getUsername());
+				List<Account> accountList = userService.getUserAccount(userSession.getUsername());
 
-			//article layer
-			out.print("<article>");
-			out.print("<h1 class='subHeading1'>Account Information</h1>");
-			out.print("<h2><table>");
-			//
-			
-			for (int i = 0; i < accountList.size(); i++) {
-				Account account = accountList.get(i);
+				requestDispatcher = request.getRequestDispatcher("userInfo.html");
+				requestDispatcher.include(request, response);
 
-				// table formatting
-				out.print("<table>");
-
-				out.print("<tr><th><b>User</b></th>");
-				out.print("<td colspan='3'>" + user.getLastName() + " , " + user.getFirstName() + "</td></tr>");
-
-				out.print("<tr><th><b>Account ID</b></th>");
-				out.print("<td>" + account.getAccountId() + "</td>");
-				out.print("<th><b>Account Type</b></th>");
-				out.print("<td>" + account.getType().getType() + "</td></tr>");
-
-				out.print("<tr><th><b>Account Status</b></th>");
-				out.print("<td>" + account.getStatus().getStatus() + "</td>");
-				out.print("<th><b>Account Balance</b></th>");
-				
-				//CONVERT balance TO currency
-				NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US); 
-				String convertedBalance = n.format(account.getBalance());
-				out.print("<td>" + convertedBalance + "</td></tr>");
+				// article layer
+				out.print("<article>");
+				out.print("<h1 class='subHeading1'>Account Information</h1>");
+				out.print("<h2><table>");
 				//
-				//shows operations only if the account is open
-				if (account.getStatus().getStatusId() == 2) {
-					out.print("<tr><td colspan='4'>");
-					out.print("<form action='accounts' method='post'>");
-					//hidden parameter to carry to accounts page
-					out.print("<input type='hidden' name='accountId' value='");
-					out.print(account.getAccountId()+"'>");
-					out.print("<input type='hidden' name='accountBalance' value='");
-					out.print(account.getBalance()+"'>");
+
+				for (int i = 0; i < accountList.size(); i++) {
+					Account account = accountList.get(i);
+
+					// table formatting
+					out.print("<table>");
+
+					out.print("<tr><th><b>User</b></th>");
+					out.print("<td colspan='3'>" + user.getLastName() + " , " + user.getFirstName() + "</td></tr>");
+
+					out.print("<tr><th><b>Account ID</b></th>");
+					out.print("<td>" + account.getAccountId() + "</td>");
+					out.print("<th><b>Account Type</b></th>");
+					out.print("<td>" + account.getType().getType() + "</td></tr>");
+
+					out.print("<tr><th><b>Account Status</b></th>");
+					out.print("<td>" + account.getStatus().getStatus() + "</td>");
+					out.print("<th><b>Account Balance</b></th>");
+
+					// CONVERT balance TO currency
+					NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
+					String convertedBalance = n.format(account.getBalance());
+					out.print("<td>" + convertedBalance + "</td></tr>");
 					//
-					out.print("<button class='smallButton' type='submit' name='accountAccess' value='deposit'>Deposit</button>");
-					out.print("<button class='smallButton' type='submit' name='accountAccess' value='withdraw'>Withdraw</button>");
-					out.print("<button class='smallButton' type='submit' name='accountAccess' value='transfer'>Transfer</button>");
-					out.print("</form>");
-					out.print("</tr></td>");
+					// shows operations only if the account is open
+					if (account.getStatus().getStatusId() == 2) {
+						out.print("<tr><td colspan='4'>");
+						out.print("<form action='accounts' method='post'>");
+						// hidden parameter to carry to accounts page
+						out.print("<input type='hidden' name='accountId' value='");
+						out.print(account.getAccountId() + "'>");
+						out.print("<input type='hidden' name='accountBalance' value='");
+						out.print(account.getBalance() + "'>");
+						//
+						out.print(
+								"<button class='smallButton' type='submit' name='accountAccess' value='deposit'>Deposit</button>");
+						out.print(
+								"<button class='smallButton' type='submit' name='accountAccess' value='withdraw'>Withdraw</button>");
+						out.print(
+								"<button class='smallButton' type='submit' name='accountAccess' value='transfer'>Transfer</button>");
+						out.print("</form>");
+						out.print("</tr></td>");
+					}
+
+					out.print("</table>");
+
+					out.print("<br>");
 				}
-				
-				out.print("</table>");
 
-				out.print("<br>");
+				out.print("</h2></article>");
+			}else {
+				throw new BusinessException("PLEASE LOGIN");
 			}
-
-			out.print("</h2></article>");
-
 		} catch (BusinessException | UserException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
-			out.print("<center><span style='color:red;'>" + e.getMessage() + "</span></center>");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			out.print("<div><h1 class='topNoticeWarning'>" + e.getMessage() + "<h1></div>");
 			requestDispatcher.include(request, response);
 		} catch (NullPointerException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");

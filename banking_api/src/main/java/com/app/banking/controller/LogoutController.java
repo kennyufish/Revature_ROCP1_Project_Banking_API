@@ -46,7 +46,7 @@ public class LogoutController extends HttpServlet {
 			requestDispatcher.include(request, response);
 		}catch (NullPointerException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			out.print("<div><h1 class='topNoticeWarning'>*There was no user logged into the session*<h1></div>");
 			requestDispatcher.include(request, response);
 		}

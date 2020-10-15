@@ -120,9 +120,9 @@ public class FindAccountByAccountIdController extends HttpServlet {
 			}
 		} catch (BusinessException e) {
 			requestDispatcher = request.getRequestDispatcher("index.html");
-			requestDispatcher.include(request, response);
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			out.print("<div><h1 class='topNoticeWarning'>"+e.getMessage()+"<h1></div>");
+			requestDispatcher.include(request, response);
 		} catch (NullPointerException e) {
 			requestDispatcher = request.getRequestDispatcher("adminInfo.html");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

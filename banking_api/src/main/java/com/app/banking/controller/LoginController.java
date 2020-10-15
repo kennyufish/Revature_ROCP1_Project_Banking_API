@@ -63,11 +63,15 @@ public class LoginController extends HttpServlet {
 		try {
 			if (service.isValidUserCredentials(user)) {
 				User accessUser = userService.getUserInfo(request.getParameter("username"));
-				if (accessUser.getRole().getRoleId() == 2 || accessUser.getRole().getRoleId() == 1) {
+				if (accessUser.getRole().getRoleId() == 1 ) {
 					session.setAttribute("accessRole", "admin");
 					requestDispatcher = request.getRequestDispatcher("addUserAccount");
 					requestDispatcher.forward(request, response);
-				} else {
+				} else if (accessUser.getRole().getRoleId() == 2) {
+					session.setAttribute("accessRole", "employee");
+					requestDispatcher = request.getRequestDispatcher("addUserAccount");
+					requestDispatcher.forward(request, response);
+				}else {
 					session.setAttribute("accessRole", "standard");
 					requestDispatcher = request.getRequestDispatcher("userInfo");
 					requestDispatcher.forward(request, response);
