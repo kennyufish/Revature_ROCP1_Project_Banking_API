@@ -1,0 +1,100 @@
+package com.app.banking.dao.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import com.app.banking.dao.UserDAO;
+import com.app.banking.dao.UserDAOImpl;
+import com.app.banking.exception.UserException;
+import com.app.banking.model.Role;
+import com.app.banking.model.User;
+
+class UserDAOImplTest {
+	
+	private static UserDAO userDao;
+	@BeforeAll
+	final static void testSetUpUserDAOImpl() {
+		userDao = new UserDAOImpl();
+	}
+	@Test
+	final void testGetUserByUsername() throws UserException {
+		User user = userDao.getUserByUsername("admin");
+		System.out.println(user);
+//		User expectedUser = new User();
+//		System.out.println(user);
+//		expectedUser.setUserId(1000);
+//		expectedUser.setUsername("admin");
+//		expectedUser.setPassword("admin");
+//		expectedUser.setFirstName("Tsz Kin");
+//		expectedUser.setLastName("Yu");
+//		expectedUser.setEmail("admin@bankapi.com");
+//		expectedUser.setRole(new Role(1,"Admin"));
+//		//try
+//		assertEquals(expectedUser, user);
+		assertNotNull(user);
+	}
+
+	@Test
+	final void testUpdateUser() throws UserException {
+		boolean b = false;
+		User user = new User();
+		user.setUserId(1019);
+		user.setPassword("melissapassword");
+		user.setFirstName("NoMelissa");
+		user.setLastName("NoDisney");
+		user.setEmail("newmdisney@gmail.com");
+		b=userDao.updateUser(user);
+		assertTrue(b);
+	}
+
+	@Test
+	final void testGetAllUsers() throws UserException {
+		List<User> userList = userDao.getAllUsers();
+		System.out.println(userList);
+		assertNotNull(userList);
+	}
+
+	@Test
+	final void testGetUserByUserId() throws UserException {
+		int userId = 1000;
+		User user = userDao.getUserByUserId(userId);
+		assertNotNull(user);
+	}
+
+	@Test
+	final void testEditUserByAdmin() throws UserException {
+		boolean b = false;
+		User user = new User();
+		user.setUserId(1020);
+		user.setPassword("password12312");
+		user.setFirstName("Andrew");
+		user.setLastName("Garfiled");
+		user.setEmail("andrewg123admin@bankapi.com");
+		user.setRole(new Role(1,"Admin"));
+		b=userDao.editUserByAdmin(user);
+		assertTrue(b);
+	}
+
+	@Test
+	final void testAddUser() {
+		User expectedUser = new User();
+		System.out.println(user);
+		expectedUser.setUserId(1000);
+		expectedUser.setUsername("admin");
+		expectedUser.setPassword("admin");
+		expectedUser.setFirstName("Tsz Kin");
+		expectedUser.setLastName("Yu");
+		expectedUser.setEmail("admin@bankapi.com");
+		expectedUser.setRole(new Role(1,"Admin"));
+	}
+
+	@Test
+	final void testValidateUsername() {
+		fail("Not yet implemented"); // TODO
+	}
+
+}

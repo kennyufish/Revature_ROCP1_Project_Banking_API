@@ -1,5 +1,0 @@
-package com.app.banking.service;
-
-public class UserInfoService {
-	public int getUserInfo(String username; String password);
-}

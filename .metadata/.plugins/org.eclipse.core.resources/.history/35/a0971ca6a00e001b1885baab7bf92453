@@ -1,0 +1,72 @@
+package com.app.banking.dao.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import com.app.banking.dao.UserDAO;
+import com.app.banking.dao.UserDAOImpl;
+import com.app.banking.exception.UserException;
+import com.app.banking.model.Role;
+import com.app.banking.model.User;
+
+class UserDAOImplTest {
+	
+	private static UserDAO userDao;
+	@BeforeAll
+	final static void testSetUpUserDAOImpl() {
+		userDao = new UserDAOImpl();
+	}
+	@Test
+	final void testGetUserByUsername() throws UserException {
+		User user = userDao.getUserByUsername("admin");
+//		User expectedUser = new User();
+//		System.out.println(user);
+//		expectedUser.setUserId(1000);
+//		expectedUser.setUsername("admin");
+//		expectedUser.setPassword("admin");
+//		expectedUser.setFirstName("Tsz Kin");
+//		expectedUser.setLastName("Yu");
+//		expectedUser.setEmail("admin@bankapi.com");
+//		expectedUser.setRole(new Role(1,"Admin"));
+//		//try
+//		assertEquals(expectedUser, user);
+		assertNotNull(user);
+	}
+
+	@Test
+	final void testUpdateUser() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	final void testGetAllUsers() throws UserException {
+		List<User> userList = userDao.getAllUsers();
+		System.out.println(userList);
+		assertNotNull(userList);
+	}
+
+	@Test
+	final void testGetUserByUserId() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	final void testEditUserByAdmin() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	final void testAddUser() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	final void testValidateUsername() {
+		fail("Not yet implemented"); // TODO
+	}
+
+}

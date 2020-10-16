@@ -2,14 +2,11 @@ package com.app.banking.service;
 
 import com.app.banking.dao.AccountDAO;
 import com.app.banking.dao.AccountDAOImpl;
-import com.app.banking.dao.UserDAO;
-import com.app.banking.dao.UserDAOImpl;
 import com.app.banking.exception.BusinessException;
 import com.app.banking.model.Account;
 
 public class AccountTranscationServiceImpl implements AccountTranscationService {
 
-	private UserDAO userDao = new UserDAOImpl();
 	private AccountDAO accountDao = new AccountDAOImpl();
 
 	@Override

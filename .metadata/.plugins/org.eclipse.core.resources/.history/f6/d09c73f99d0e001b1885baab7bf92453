@@ -1,0 +1,44 @@
+package com.app.banking.dao.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class UserDAOImplTest {
+
+	@Test
+	void testGetUserByUsername() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testUpdateUser() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testGetAllUsers() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testGetUserByUserId() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testEditUserByAdmin() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testAddUser() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testValidateUsername() {
+		fail("Not yet implemented");
+	}
+
+}

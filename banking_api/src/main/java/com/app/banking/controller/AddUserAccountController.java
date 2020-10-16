@@ -47,8 +47,7 @@ public class AddUserAccountController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			if (session.getAttribute("accessRole").equals("admin")
-					|| session.getAttribute("accessRole").equals("employee")) {
+			if (session.getAttribute("accessRole").equals("admin")) {
 				requestDispatcher = request.getRequestDispatcher("adminInfo.html");
 				requestDispatcher.include(request, response);
 
@@ -117,7 +116,13 @@ public class AddUserAccountController extends HttpServlet {
 				out.print("</h1></form>");
 
 				out.print("</article>");
-			}else {
+			}else if (session.getAttribute("accessRole").equals("employee")) {
+				requestDispatcher = request.getRequestDispatcher("adminInfo.html");
+				requestDispatcher.include(request, response);
+				out.print("<article>");
+				out.print("<h1 class='subHeading1'>No Access To Register User</h1>");
+			}
+			else {
 				throw new BusinessException();
 			}
 

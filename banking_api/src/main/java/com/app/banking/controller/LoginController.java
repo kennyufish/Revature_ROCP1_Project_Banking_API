@@ -69,7 +69,7 @@ public class LoginController extends HttpServlet {
 					requestDispatcher.forward(request, response);
 				} else if (accessUser.getRole().getRoleId() == 2) {
 					session.setAttribute("accessRole", "employee");
-					requestDispatcher = request.getRequestDispatcher("addUserAccount");
+					requestDispatcher = request.getRequestDispatcher("findUpdateUsers");
 					requestDispatcher.forward(request, response);
 				}else {
 					session.setAttribute("accessRole", "standard");

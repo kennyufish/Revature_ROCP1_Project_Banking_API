@@ -1,7 +1,0 @@
-package com.app.banking.service;
-
-import com.app.banking.exception.BusinessException;
-
-public interface UserInfoService {
-	public int getUserInfo(String username, String password) throws BusinessException;
-}

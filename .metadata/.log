@@ -209,3 +209,24 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.eclipse.jst.server.core 4 0 2020-10-14 17:58:33.055
 !MESSAGE Could not launch in profiling mode because no profilers are configured.
+
+!ENTRY org.eclipse.jdt.core 4 1006 2020-10-14 21:10:28.740
+!MESSAGE C:\Users\Kenny Yu\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.core 4 1006 2020-10-14 21:10:28.743
+!MESSAGE C:\Users\Kenny Yu\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.core 4 1006 2020-10-14 21:10:28.744
+!MESSAGE C:\Users\Kenny Yu\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.core 4 1006 2020-10-14 21:10:28.745
+!MESSAGE C:\Users\Kenny Yu\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.core 4 1006 2020-10-14 21:10:28.746
+!MESSAGE C:\Users\Kenny Yu\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.core 4 1006 2020-10-14 21:10:28.747
+!MESSAGE C:\Users\Kenny Yu\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar is not on its project's build path
+
+!ENTRY org.eclipse.jdt.core 4 1006 2020-10-14 21:10:28.748
+!MESSAGE C:\Users\Kenny Yu\.m2\repository\mysql\mysql-connector-java\8.0.18\mysql-connector-java-8.0.18.jar is not on its project's build path
