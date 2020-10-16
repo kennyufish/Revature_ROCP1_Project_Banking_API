@@ -251,3 +251,7 @@
 127.0.0.1 - - [15/Oct/2020:19:33:41 -0700] "GET / HTTP/1.1" 404 751
 0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:34:00 -0700] "POST /banking_api/loginUser HTTP/1.1" 200 3240
 0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:34:05 -0700] "POST /banking_api/registerAccount HTTP/1.1" 200 3315
+127.0.0.1 - - [15/Oct/2020:19:35:07 -0700] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:35:19 -0700] "POST /banking_api/loginUser HTTP/1.1" 200 3240
+0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:35:54 -0700] "POST /banking_api/registerUser HTTP/1.1" 200 3341
+0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:36:26 -0700] "POST /banking_api/loginUser HTTP/1.1" 200 3240
