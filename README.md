@@ -1,5 +1,5 @@
 # Revature_ROCP1_Project_Banking_API
-This is a JEE project utilizing servlets and MySQL database with RPC Endpoints implementation. It is called as the Banking API that will manage and manipulate the bank accounts of its users. 
+This is a JEE maven project utilizing servlets, HTML, and MySQL database with RPC Endpoints implementation. It is called as the Banking API that will manage and manipulate the bank accounts of its users. 
 -	Standard Users have access to their own accounts and have the ability to make transactions. 
 -	Bank’s employees and admins have access to view all users and their associated accounts. 
 -	Admins also have the ability to modify user information and register new users/accounts.
