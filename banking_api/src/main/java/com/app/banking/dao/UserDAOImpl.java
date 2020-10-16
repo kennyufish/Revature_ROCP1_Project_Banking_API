@@ -212,4 +212,29 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
+	@Override
+	public boolean validateUsernEmail(String email) throws UserException {
+		boolean b = false;
+		try (Connection connection = MySqlConnection.getConnection()) {
+			String sql = "SELECT userid FROM bankapi.user WHERE email = ?";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql);
+			prepStatement.setString(1, email);
+
+			ResultSet resultSet = prepStatement.executeQuery();
+
+			if (resultSet.next()) {
+				b = true;
+			}else {
+				return b;
+			}
+			
+			resultSet.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new UserException("Contact SYSADMIN : validateUsername() ERROR...");
+		}
+		return b;
+	}
+
 }

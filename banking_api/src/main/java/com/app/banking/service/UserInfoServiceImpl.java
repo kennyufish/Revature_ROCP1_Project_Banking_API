@@ -61,20 +61,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public int addUser(User user) throws BusinessException, UserException {
-
-		//check for validation in data and see if data has the same username or email
-		boolean validation = true;
-		if (validation) {
 			return userDao.addUser(user);
-		}else {
-			return 0;
-		}
 	}
 
 	@Override
 	public boolean validateUsername(String username) throws BusinessException, UserException {
-		
 		return userDao.validateUsername(username);
+	}
+
+	@Override
+	public boolean validateUserEmail(String email) throws BusinessException, UserException {
+		return userDao.validateUsernEmail(email);
 	}
 
 

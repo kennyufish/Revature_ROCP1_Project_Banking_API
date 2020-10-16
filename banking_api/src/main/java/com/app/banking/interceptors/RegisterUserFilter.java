@@ -40,15 +40,20 @@ public class RegisterUserFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		//validate User Inputs
 		UserInfoService userService = new UserInfoServiceImpl();
-
+		
 		PrintWriter out = response.getWriter();
 		try {
+			//check for existing user and email
 			if(!userService.validateUsername(request.getParameter("username"))) {
-				chain.doFilter(request, response);
+				if(!userService.validateUserEmail(request.getParameter("email"))) {
+					chain.doFilter(request, response);
+				}else {
+					out.print("<div><h1 class='topNoticeWarning'>Cannot Use Email: '"+request.getParameter("email")+"' , User Exists With Such Email<h1></div>");
+					request.getRequestDispatcher("addUserAccount").include(request, response);
+				}
 			}else {
-				out.print("<div><h1 class='topNoticeWarning'>Such Username Exists<h1></div>");
+				out.print("<div><h1 class='topNoticeWarning'>Username: '"+request.getParameter("username")+"' Exists, Please Try A Different Username<h1></div>");
 				request.getRequestDispatcher("addUserAccount").include(request, response);
 			}
 		} catch (BusinessException | UserException | IOException | ServletException e) {

@@ -246,4 +246,17 @@
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
+  <filter>
+    <display-name>RegisterAccountFilter</display-name>
+    <filter-name>RegisterAccountFilter</filter-name>
+    <filter-class>com.app.banking.interceptors.RegisterAccountFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>RegisterAccountFilter</filter-name>
+    <servlet-name>RegisterAccountController</servlet-name>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
 </web-app>
