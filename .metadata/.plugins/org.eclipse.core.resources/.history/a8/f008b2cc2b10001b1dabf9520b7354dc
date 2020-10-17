@@ -281,13 +281,4 @@
     <filter-name>WithdrawFilter</filter-name>
     <servlet-name>WithdrawController</servlet-name>
   </filter-mapping>
-  <filter>
-    <display-name>TransferFilter</display-name>
-    <filter-name>TransferFilter</filter-name>
-    <filter-class>com.app.banking.interceptors.TransferFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>TransferFilter</filter-name>
-    <servlet-name>TransferController</servlet-name>
-  </filter-mapping>
 </web-app>

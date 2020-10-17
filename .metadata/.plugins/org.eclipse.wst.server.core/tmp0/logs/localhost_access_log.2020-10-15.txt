@@ -304,3 +304,4 @@
 0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:47:13 -0700] "POST /banking_api/logout HTTP/1.1" 200 778
 0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:48:08 -0700] "POST /banking_api/loginUser HTTP/1.1" 200 3240
 0:0:0:0:0:0:0:1 - - [15/Oct/2020:19:48:10 -0700] "POST /banking_api/logout HTTP/1.1" 200 775
+0:0:0:0:0:0:0:1 - - [15/Oct/2020:21:22:57 -0700] "GET /favicon.ico HTTP/1.1" 404 762

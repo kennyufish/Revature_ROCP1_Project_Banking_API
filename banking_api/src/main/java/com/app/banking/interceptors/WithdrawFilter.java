@@ -1,0 +1,53 @@
+package com.app.banking.interceptors;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+/**
+ * Servlet Filter implementation class WithdrawFilter
+ */
+public class WithdrawFilter implements Filter {
+
+    /**
+     * Default constructor. 
+     */
+    public WithdrawFilter() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see Filter#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 */
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		PrintWriter out = response.getWriter();
+		//check for withdraw amount, must be greater than 0;
+		if (Integer.parseInt(request.getParameter("withdrawAmount")) > 0) {
+			chain.doFilter(request, response);
+		}else {
+			out.print("<div><h1 class='topNoticeWarning'>Withdrawn Amount: '"+request.getParameter("withdrawAmount")+"' Is Invalid<h1></div>");
+			request.getRequestDispatcher("accounts").include(request, response);
+		}
+	}
+
+	/**
+	 * @see Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		// TODO Auto-generated method stub
+	}
+
+}

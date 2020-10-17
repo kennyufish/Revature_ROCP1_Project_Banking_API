@@ -259,4 +259,35 @@
     <dispatcher>INCLUDE</dispatcher>
     <dispatcher>ERROR</dispatcher>
   </filter-mapping>
+  <filter>
+    <display-name>DepositFilter</display-name>
+    <filter-name>DepositFilter</filter-name>
+    <filter-class>com.app.banking.interceptors.DepositFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>DepositFilter</filter-name>
+    <servlet-name>DepositController</servlet-name>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>WithdrawFilter</display-name>
+    <filter-name>WithdrawFilter</filter-name>
+    <filter-class>com.app.banking.interceptors.WithdrawFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>WithdrawFilter</filter-name>
+    <servlet-name>WithdrawController</servlet-name>
+  </filter-mapping>
+  <filter>
+    <display-name>TransferFilter</display-name>
+    <filter-name>TransferFilter</filter-name>
+    <filter-class>com.app.banking.interceptors.TransferFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>TransferFilter</filter-name>
+    <servlet-name>TransferController</servlet-name>
+  </filter-mapping>
 </web-app>
