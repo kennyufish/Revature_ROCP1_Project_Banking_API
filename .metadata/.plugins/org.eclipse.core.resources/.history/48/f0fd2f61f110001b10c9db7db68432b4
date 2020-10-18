@@ -66,7 +66,7 @@ public class FindUpdateUsersController extends HttpServlet {
 				out.print("<div><h1 class='subHeading1' style='margin-top:20px;'>Users List</h1></div>");
 
 				out.print(
-						"<div class='smallFont'><table><tr><th>User ID</th><th>Username</th><th>Name</th><th>Email</th><th>Role</th><th>Detail</th>");
+						"<div class='smallFont'><table><tr><th>User ID</th><th>Username</th><th>User Name</th><th>Email</th><th>Role</th><th>Detail</th>");
 
 				System.out.println("session accessRole:"+session.getAttribute("accessRole"));
 				if (session.getAttribute("accessRole").equals("admin")) {

@@ -98,12 +98,6 @@ public class ViewUserInfoController extends HttpServlet {
 			out.print("<button class='smallButton' type='submit'>Modify Info</button>");
 			out.print("</form>");
 
-			out.print("<br><br>");
-			out.print("<form action='deleteUserByID' method='post'>");
-			out.print("<button style='background-color:red;' class='smallButton' type='submit' name='deleteUser'>Delete User</button>");
-			out.print("<sapn style='color:red' >*CAUTION: deleting the user will also delete the associated accounts*</span>");
-			out.print("</form>");
-			
 			out.print("</h1></article>");
 
 		} catch (BusinessException | UserException e) {
