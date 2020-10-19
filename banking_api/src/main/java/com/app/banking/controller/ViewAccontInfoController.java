@@ -138,8 +138,9 @@ public class ViewAccontInfoController extends HttpServlet {
 			
 			//delete function
 			out.print("<br><br>");
-			out.print("<form action='deleteAccountByID' method='post'>");
-			out.print("<button style='background-color:red;' class='smallButton' type='submit' name='deleteAccount'>Delete Account</button>");
+			out.print("<form action='deleteWarning' method='post'>");
+			out.print("<input type='hidden' name='accountId' value='"+account.getAccountId()+"'>");
+			out.print("<button style='background-color:red;' class='smallButton' type='submit' name='deleteAccess' value='deleteAccount'>Delete Account</button>");
 			out.print("<sapn style='color:red' >*CAUTION: this process is irreversible*</span>");
 			out.print("</form>");
 

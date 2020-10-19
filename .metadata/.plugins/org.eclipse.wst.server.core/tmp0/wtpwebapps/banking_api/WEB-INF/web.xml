@@ -290,4 +290,24 @@
     <filter-name>TransferFilter</filter-name>
     <servlet-name>TransferController</servlet-name>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteWarningController</display-name>
+    <servlet-name>DeleteWarningController</servlet-name>
+    <servlet-class>com.app.banking.controller.delete.DeleteWarningController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteWarningController</servlet-name>
+    <url-pattern>/deleteWarning</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteAccountController</display-name>
+    <servlet-name>DeleteAccountController</servlet-name>
+    <servlet-class>com.app.banking.controller.delete.DeleteAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAccountController</servlet-name>
+    <url-pattern>/deleteAccount</url-pattern>
+  </servlet-mapping>
 </web-app>
