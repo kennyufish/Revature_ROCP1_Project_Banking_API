@@ -14,4 +14,5 @@ public interface AccountInforService {
 	public List<Account> getAccountsByStatusId(int statusId) throws BusinessException;
 	public boolean editAccountByAdmin(Account account) throws BusinessException;
 	public int addAccount(Account account) throws BusinessException;
+	public boolean deleteAccountById(int accountId) throws BusinessException;
 }

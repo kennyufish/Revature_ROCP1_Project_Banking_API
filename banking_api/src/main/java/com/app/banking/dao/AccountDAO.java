@@ -27,4 +27,6 @@ public interface AccountDAO {
 
 	public int addAccount(Account account) throws BusinessException;
 
+	public boolean deleteAccount(int accountId) throws BusinessException;
+
 }

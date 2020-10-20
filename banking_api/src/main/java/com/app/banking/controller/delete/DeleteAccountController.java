@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.app.banking.exception.BusinessException;
+import com.app.banking.service.AccountInforService;
+import com.app.banking.service.AccountInforServiceImpl;
+
 /**
  * Servlet implementation class DeleteAccountController
  */
@@ -33,16 +37,28 @@ public class DeleteAccountController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String deleteAccount = request.getParameter("deleteAccount");
-		if(deleteAccount.equals("yes")) {
-			System.out.println("yes");
-		}else if(deleteAccount.equals("no")) {
-			requestDispatcher = request.getRequestDispatcher("viewAccontInfo");
-			requestDispatcher.forward(request, response);
-		}else {
-			requestDispatcher = request.getRequestDispatcher("adminInfo.html");
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			out.print("<div><h1 class='topNoticeWarning'>*The requested action is not permitted*<h1></div>");
-			requestDispatcher.include(request, response);
+		try {
+			if(deleteAccount.equals("yes")) {
+				AccountInforService accountService = new AccountInforServiceImpl();
+				requestDispatcher = request.getRequestDispatcher("findUpdateAccounts");
+				if (accountService.deleteAccountById(Integer.parseInt(request.getParameter("accountId")))) {
+					out.print("<div><h1 class='topNoticeUpdateSuccess'>Account # "+request.getParameter("accountId")+" Deleted<h1></div>");
+				}else {
+					out.print("<div><h1 class='topNoticeUpdateFail'>Failed To Delete Account # "+request.getParameter("accountId")+"<h1></div>");
+				}
+				requestDispatcher.include(request, response);
+			}else if(deleteAccount.equals("no")) {
+				requestDispatcher = request.getRequestDispatcher("viewAccontInfo");
+				requestDispatcher.forward(request, response);
+			}else {
+				requestDispatcher = request.getRequestDispatcher("adminInfo.html");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				out.print("<div><h1 class='topNoticeWarning'>*The requested action is not permitted*<h1></div>");
+				requestDispatcher.include(request, response);
+			}
+		} catch (NumberFormatException | BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

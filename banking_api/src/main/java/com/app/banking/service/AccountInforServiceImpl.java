@@ -55,4 +55,9 @@ public class AccountInforServiceImpl implements AccountInforService {
 		return accountDao.addAccount(account);
 	}
 
+	@Override
+	public boolean deleteAccountById(int accountId) throws BusinessException {
+		return accountDao.deleteAccount(accountId);
+	}
+
 }

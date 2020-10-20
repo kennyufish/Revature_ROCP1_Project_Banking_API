@@ -1,0 +1,18 @@
+package com.app.banking.service;
+
+import java.util.List;
+
+import com.app.banking.exception.BusinessException;
+import com.app.banking.model.Account;
+
+public interface AccountInforService throws BusinessException{
+
+	public Account getAccountById(int accountId);
+	public boolean validateAccountById(int accountId);
+	public List<Account> getAllAccounts();
+	public List<Account> getAccountsByUserId(int userId);
+	public List<Account> getAccountsByStatusId(int statusId);
+	public boolean editAccountByAdmin(Account account);
+	public int addAccount(Account account);
+	public void deleteAccountById(int accountId);
+}
