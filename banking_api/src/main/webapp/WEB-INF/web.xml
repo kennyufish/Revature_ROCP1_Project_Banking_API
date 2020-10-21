@@ -310,4 +310,14 @@
     <servlet-name>DeleteAccountController</servlet-name>
     <url-pattern>/deleteAccount</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteUserController</display-name>
+    <servlet-name>DeleteUserController</servlet-name>
+    <servlet-class>com.app.banking.controller.DeleteUserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteUserController</servlet-name>
+    <url-pattern>/deleteUser</url-pattern>
+  </servlet-mapping>
 </web-app>

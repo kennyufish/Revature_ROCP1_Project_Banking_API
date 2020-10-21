@@ -17,4 +17,5 @@ public interface UserInfoService {
 	public int addUser(User user) throws BusinessException, UserException;
 	public boolean validateUsername(String username) throws BusinessException, UserException;
 	public boolean validateUserEmail(String email) throws BusinessException, UserException;
+	public boolean deleteUserById(int userId) throws BusinessException, UserException;
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.app.banking.database.utility.MySqlConnection;
+import com.app.banking.exception.BusinessException;
 import com.app.banking.exception.UserException;
 import com.app.banking.model.Role;
 import com.app.banking.model.User;
@@ -37,9 +38,9 @@ public class UserDAOImpl implements UserDAO {
 				user.setEmail(resultSet.getString("email"));
 				user.setRole(new Role(resultSet.getInt("roleid"), resultSet.getString("role")));
 			}
-			
+
 			resultSet.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new UserException("Contact SYSADMIN : UserDAOImpl ERROR...");
 		}
@@ -60,10 +61,10 @@ public class UserDAOImpl implements UserDAO {
 			prepStatement.setString(4, user.getEmail());
 			prepStatement.setString(5, user.getUsername());
 			System.out.println(prepStatement);
-			
-			if(prepStatement.executeUpdate() != 0) {
+
+			if (prepStatement.executeUpdate() != 0) {
 				return true;
-			}else {
+			} else {
 				return false;
 			}
 
@@ -77,12 +78,12 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> getAllUsers() throws UserException {
 		List<User> userList = new ArrayList<User>();
 		try (Connection connection = MySqlConnection.getConnection()) {
-			String sql = "SELECT userid,username,password,firstname,lastname,email,user.roleid,role FROM bankapi.user " + 
-					"INNER JOIN bankapi.role ON user.roleid = role.roleid;";
+			String sql = "SELECT userid,username,password,firstname,lastname,email,user.roleid,role FROM bankapi.user "
+					+ "INNER JOIN bankapi.role ON user.roleid = role.roleid;";
 			PreparedStatement prepStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = prepStatement.executeQuery();
-			
-			while(resultSet.next()) {
+
+			while (resultSet.next()) {
 				User user = new User();
 				user.setUserId(resultSet.getInt("userid"));
 				user.setUsername(resultSet.getString("username"));
@@ -90,14 +91,14 @@ public class UserDAOImpl implements UserDAO {
 				user.setFirstName(resultSet.getString("firstname"));
 				user.setLastName(resultSet.getString("lastname"));
 				user.setEmail(resultSet.getString("email"));
-				user.setRole(new Role(resultSet.getInt("roleid"),resultSet.getString("role")));
+				user.setRole(new Role(resultSet.getInt("roleid"), resultSet.getString("role")));
 				userList.add(user);
 			}
 			resultSet.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new UserException("Contact SYSADMIN : UserDAOImpl():getAllUsers() ERROR: "+e.getMessage());
-		} 
+			throw new UserException("Contact SYSADMIN : UserDAOImpl():getAllUsers() ERROR: " + e.getMessage());
+		}
 		return userList;
 	}
 
@@ -122,9 +123,9 @@ public class UserDAOImpl implements UserDAO {
 				user.setEmail(resultSet.getString("email"));
 				user.setRole(new Role(resultSet.getInt("roleid"), resultSet.getString("role")));
 			}
-			
+
 			resultSet.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new UserException("Contact SYSADMIN : UserDAOImpl ERROR...");
 		}
@@ -145,10 +146,10 @@ public class UserDAOImpl implements UserDAO {
 			prepStatement.setInt(5, user.getRole().getRoleId());
 			prepStatement.setString(6, user.getUsername());
 			System.out.println(prepStatement);
-			
-			if(prepStatement.executeUpdate() != 0) {
+
+			if (prepStatement.executeUpdate() != 0) {
 				return true;
-			}else {
+			} else {
 				return false;
 			}
 
@@ -170,19 +171,19 @@ public class UserDAOImpl implements UserDAO {
 			prepStatement.setInt(5, user.getRole().getRoleId());
 			prepStatement.setString(6, user.getUsername());
 			System.out.println(prepStatement);
-			
+
 			prepStatement.executeUpdate();
 			ResultSet resultSet = prepStatement.getGeneratedKeys();
 
 			System.out.println(resultSet);
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				return resultSet.getInt(1);
-			}else {
+			} else {
 				return 0;
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new UserException("Contact SYSADMIN : UserDAOImpl():addUser() ERROR..."+e.getMessage());
+			throw new UserException("Contact SYSADMIN : UserDAOImpl():addUser() ERROR..." + e.getMessage());
 		}
 	}
 
@@ -199,12 +200,12 @@ public class UserDAOImpl implements UserDAO {
 
 			if (resultSet.next()) {
 				b = true;
-			}else {
+			} else {
 				return b;
 			}
-			
+
 			resultSet.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new UserException("Contact SYSADMIN : validateUsername() ERROR...");
 		}
@@ -225,16 +226,36 @@ public class UserDAOImpl implements UserDAO {
 
 			if (resultSet.next()) {
 				b = true;
-			}else {
+			} else {
 				return b;
 			}
-			
+
 			resultSet.close();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new UserException("Contact SYSADMIN : validateUsername() ERROR...");
 		}
 		return b;
+	}
+
+	@Override
+	public boolean deleteUserById(int userId) throws UserException {
+		try (Connection connection = MySqlConnection.getConnection()) {
+			String sql = "DELETE FROM bankapi.user WHERE userid=?";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql);
+			prepStatement.setInt(1, userId);
+			System.out.println(prepStatement);
+
+			if (prepStatement.executeUpdate() != 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new UserException("Contact SYSADMIN : deleteUserById() ERROR...");
+		}
 	}
 
 }

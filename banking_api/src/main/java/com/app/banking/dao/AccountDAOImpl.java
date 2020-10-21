@@ -360,5 +360,25 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 	}
 
+	@Override
+	public boolean deleteAccountByUsername(String username) throws BusinessException {
+		try (Connection connection = MySqlConnection.getConnection()) {
+			String sql = "DELETE FROM bankapi.account WHERE username=?";
+
+			PreparedStatement prepStatement = connection.prepareStatement(sql);
+			prepStatement.setString(1, username);
+			System.out.println(prepStatement);
+			
+			if(prepStatement.executeUpdate() != 0) {
+				return true;
+			}else {
+				return false;
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Contact SYSADMIN : AccountDAOImpl():deleteAccountByUsername() ERROR..."+e.getMessage());
+		}
+	}
+
 
 }

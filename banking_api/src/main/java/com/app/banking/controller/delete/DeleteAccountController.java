@@ -51,14 +51,13 @@ public class DeleteAccountController extends HttpServlet {
 				requestDispatcher = request.getRequestDispatcher("viewAccontInfo");
 				requestDispatcher.forward(request, response);
 			}else {
-				requestDispatcher = request.getRequestDispatcher("adminInfo.html");
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				out.print("<div><h1 class='topNoticeWarning'>*The requested action is not permitted*<h1></div>");
-				requestDispatcher.include(request, response);
+				throw new BusinessException("No Access Deleting Account");
 			}
 		} catch (NumberFormatException | BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			requestDispatcher = request.getRequestDispatcher("adminInfo.html");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			out.print("<div><h1 class='topNoticeWarning'>*The requested action is not permitted*<h1></div>");
+			requestDispatcher.include(request, response);
 		}
 	}
 

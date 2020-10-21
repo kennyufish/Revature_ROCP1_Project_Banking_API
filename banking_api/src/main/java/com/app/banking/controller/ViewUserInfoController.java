@@ -100,7 +100,8 @@ public class ViewUserInfoController extends HttpServlet {
 
 			out.print("<br><br>");
 			out.print("<form action='deleteWarning' method='post'>");
-			out.print("<button style='background-color:red;' class='smallButton' type='submit' name='deleteUser'>Delete User</button>");
+			out.print("<input type='hidden' name='userId' value='"+request.getParameter("userId")+"'>");
+			out.print("<button style='background-color:red;' class='smallButton' type='submit' name='deleteAccess' value='deleteUser'>Delete User</button>");
 			out.print("<sapn style='color:red' >*CAUTION: deleting the user will also delete the associated accounts*</span>");
 			out.print("</form>");
 			

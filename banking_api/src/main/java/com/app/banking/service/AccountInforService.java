@@ -15,4 +15,5 @@ public interface AccountInforService {
 	public boolean editAccountByAdmin(Account account) throws BusinessException;
 	public int addAccount(Account account) throws BusinessException;
 	public boolean deleteAccountById(int accountId) throws BusinessException;
+	public boolean deleteAccountByUsername(String username) throws BusinessException;
 }

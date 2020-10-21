@@ -60,4 +60,9 @@ public class AccountInforServiceImpl implements AccountInforService {
 		return accountDao.deleteAccount(accountId);
 	}
 
+	@Override
+	public boolean deleteAccountByUsername(String username) throws BusinessException {
+		return accountDao.deleteAccountByUsername(username);
+	}
+
 }

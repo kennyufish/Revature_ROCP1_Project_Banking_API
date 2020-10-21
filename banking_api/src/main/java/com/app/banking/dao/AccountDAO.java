@@ -29,4 +29,6 @@ public interface AccountDAO {
 
 	public boolean deleteAccount(int accountId) throws BusinessException;
 
+	public boolean deleteAccountByUsername(String username) throws BusinessException;
+
 }

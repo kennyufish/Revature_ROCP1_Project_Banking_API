@@ -15,5 +15,6 @@ public interface UserDAO {
 	public int addUser(User user) throws UserException;
 	public boolean validateUsername(String username) throws UserException;
 	public boolean validateUsernEmail(String email) throws UserException;
+	public boolean deleteUserById(int userId) throws UserException;
 
 }

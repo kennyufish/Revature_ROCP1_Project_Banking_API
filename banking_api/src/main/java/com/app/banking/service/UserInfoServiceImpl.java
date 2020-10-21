@@ -74,5 +74,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return userDao.validateUsernEmail(email);
 	}
 
+	@Override
+	public boolean deleteUserById(int userId) throws BusinessException, UserException {
+		return userDao.deleteUserById(userId);
+	}
+
 
 }
